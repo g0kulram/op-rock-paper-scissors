@@ -31,7 +31,7 @@ function getHumanChoice() {
 function playRound(humanChoice, computerChoice) {
     //if human choice and computer choice is the same, it's a draw
     if (humanChoice === computerChoice) {
-        console.log("It's a Draw!");
+        console.log(`It's a ${humanChoice} draw!`);
         return;
     }
 
@@ -72,4 +72,27 @@ function playRound(humanChoice, computerChoice) {
             }
             break;
     }
+}
+
+//play 5 rounds
+
+let currentRound = 1;//keeps track of the number of rounds
+
+//looping to play the rounds until 5
+while(currentRound <= 5) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+
+    playRound(humanSelection, computerSelection);
+    currentRound++;
+}
+
+//print the results
+console.log(`Your Victory: ${humanScore}    ||    Computer Victory:${computerScore}`);
+if(humanScore > computerScore) {
+    console.log("VICTORY!");
+} else if(computerScore > humanScore) {
+    console.log("DEFEAT!");
+} else {
+    console.log("Would you look at it? It's a draw!");
 }
