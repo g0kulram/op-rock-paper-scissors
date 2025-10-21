@@ -1,5 +1,10 @@
 console.log("Hello!!! Welcome to RCP!");
 
+//humanScore to track number of user's win
+let humanScore = 0;
+//computerScore to track number of computer's win
+let computerScore = 0;
+
 //returns rock, paper or scissors randomly
 function getComputerChoice() {
     const result = Math.random();
