@@ -1,4 +1,4 @@
-console.log("Hello!!! Welcome to RCP!");
+console.log("Hello!!! Welcome to RPS!");
 
 //humanScore to track number of user's win
 let humanScore = 0;
@@ -78,21 +78,39 @@ function playRound(humanChoice, computerChoice) {
 
 let currentRound = 1;//keeps track of the number of rounds
 
-//looping to play the rounds until 5
-while(currentRound <= 5) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
+const resultDiv = document.querySelector('#result');
+const roundHeading = document.querySelector('h2')
+roundHeading.textContent = `Round ${currentRound}`
 
-    playRound(humanSelection, computerSelection);
-    currentRound++;
+const buttons = document.querySelectorAll('button')
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (currentRound <= 5) {
+            playRound(button.id, getComputerChoice());
+            if (currentRound < 5) {
+                updateResults();
+                startNextRound();
+            } else {
+                showFinalResult();
+            }
+        }
+    })
+});
+
+function updateResults() {
+    const result = `Player: ${humanScore} | Computer: ${computerScore}`;
+    resultDiv.textContent = result;
 }
 
-//print the results
-console.log(`Your Victory: ${humanScore}    ||    Computer Victory:${computerScore}`);
-if(humanScore > computerScore) {
-    console.log("VICTORY!");
-} else if(computerScore > humanScore) {
-    console.log("DEFEAT!");
-} else {
-    console.log("Would you look at it? It's a draw!");
+function startNextRound() {
+    currentRound++
+    roundHeading.textContent = `Round ${currentRound}`;
+}
+
+function showFinalResult() {
+    roundHeading.textContent = "Game Over!"
+    const finalResult = ((humanScore > computerScore) ? "You Win!" : (computerScore > humanScore) ? "You Lose!" : "It's Draw!")
+    const para = document.createElement('p');
+    para.textContent = finalResult
+    resultDiv.appendChild(para)
 }
